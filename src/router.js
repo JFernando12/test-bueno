@@ -55,6 +55,8 @@ router.get("/api/article/:id", (req, res, next) => {
 // Can be improved: You could remove the last parenthesis to maintain a standard in the code.
 router.post("/api/article/", (req, res, next) => {
     const errors=[];
+    // Can be improved: No need to type req.body.title, req.body... as many times.
+    // You can use destructuring an only use the keys: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
     if (!req.body.title){
         errors.push("title is required");
     }
@@ -68,8 +70,6 @@ router.post("/api/article/", (req, res, next) => {
     }
     // Needs correcting: The date has to be set automatically.
     // it is bad practice to ask the client for the date, apart from the fact that it may not be very exact: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Date
-    // Can be improved: There is no need to declare the object if it already exists inside the req.body.
-    // You can only save req.body into the constant data or you can use destructuring: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
     const data = {
         title: req.body.title,
         body: req.body.body,
