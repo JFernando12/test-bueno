@@ -42,6 +42,7 @@ router.get("/api/article/:id", (req, res, next) => {
         console.log('row: ', row);
         // Needs correcting: Quotes in keys are not needed.
         // The res.json() function sends a JSON response but you could pass an object to it: https://www.geeksforgeeks.org/express-js-res-json-function/
+        // It is possible that the article with some id does not exist. A good practice would be to validate if the product exists or not, and if not exist, tell the customer.
         res.json({
             "message":"Success",
             "data":row
@@ -51,6 +52,7 @@ router.get("/api/article/:id", (req, res, next) => {
 
 // Needs correcting: next is not necessary in the endpoints.
 // next is used in middleware to pass control to the next function and we don't have next function: https://expressjs.com/es/guide/writing-middleware.html
+// Can be improved: You could remove the last parenthesis to maintain a standard in the code.
 router.post("/api/article/", (req, res, next) => {
     const errors=[];
     if (!req.body.title){
@@ -59,12 +61,15 @@ router.post("/api/article/", (req, res, next) => {
     if (!req.body.body){
         errors.push("body is required");
     }
+    // Needs correcting: If you are going to use the join function, try to leave a space after the comma, otherwise it will be written all together.
     if (errors.length){
         res.status(400).json({"error":errors.join(",")});
         return;
     }
     // Needs correcting: The date has to be set automatically.
     // it is bad practice to ask the client for the date, apart from the fact that it may not be very exact: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Date
+    // Can be improved: There is no need to declare the object if it already exists inside the req.body.
+    // You can only save req.body into the constant data or you can use destructuring: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
     const data = {
         title: req.body.title,
         body: req.body.body,
@@ -81,7 +86,8 @@ router.post("/api/article/", (req, res, next) => {
             return;
         }
         // Needs correcting: The correct status code must be set.
-        // The default status code is 200, and there is a status code that indicates creation: https://developer.mozilla.org/es/docs/Web/HTTP/Status
+        // The default status code is 200, and there is a status code that indicates creation, you could to set it: https://developer.mozilla.org/es/docs/Web/HTTP/Status
+        // The id should be inside the data. the job of the id is to identify the article, therefore it is part of the data.
         res.json({
             "message": "Success",
             "data": data,
@@ -93,6 +99,8 @@ router.post("/api/article/", (req, res, next) => {
 // Needs correcting: next is not necessary in the endpoints.
 // next is used in middleware to pass control to the next function and we don't have next function: https://expressjs.com/es/guide/writing-middleware.html
 router.put("/api/article/:id", (req, res, next) => {
+    // Can be improved: There is no need to declare the object if it already exists inside the req.body.
+    // You can only save req.body into the constant data or you can use destructuring: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
     const data = {
         title: req.body.title,
         body: req.body.body
@@ -141,6 +149,7 @@ router.delete("/api/article/:id", (req, res, next) => {
             // Needs correcting:
             // Quotes in keys are not needed.
             // The res.json() function sends a JSON response but you could pass an object to it: https://www.geeksforgeeks.org/express-js-res-json-function/
+            // Can be improved: could you indicate in the response the id of the deleted article.
             res.json({"message":"Deleted", rows: this.changes});
     });
 });
@@ -149,6 +158,9 @@ router.delete("/api/article/:id", (req, res, next) => {
 // next is not necessary in the endpoints.
 // next is used in middleware to pass control to the next function and we don't have next function: https://expressjs.com/es/guide/writing-middleware.html
 router.get("/", (req, res, next) => {
+    // Needs correcting:
+    // Quotes in keys are not needed.
+    // The res.json() function sends a JSON response but you could pass an object to it: https://www.geeksforgeeks.org/express-js-res-json-function/
     res.json({"message":"Ok"});
 });
 
