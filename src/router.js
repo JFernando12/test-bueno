@@ -3,6 +3,14 @@ const db = require("./database.js");
 
 const router = express.Router();
 
+// Needs correcting:
+// It is very important to have correctly formatted code to improve readability.
+// It is recommended to use a linter to identify errors: https://www.npmjs.com/package/eslint
+
+// Can be improved:
+// The code would be more readable if the logic of the database queries was separated from the routes.
+// If you separate logic from routes, the communication would be asynchronous and it is recommended to use promises: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
 // Needs correcting: next is not necessary in the endpoints.
 // next is used in middleware to pass control to the next function and we don't have next function: https://expressjs.com/es/guide/writing-middleware.html
 router.get("/api/articles", (req, res, next) => {
@@ -57,6 +65,7 @@ router.post("/api/article/", (req, res, next) => {
     const errors=[];
     // Can be improved: No need to type req.body.title, req.body... as many times.
     // You can use destructuring an only use the keys: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+    // It is a bit tedious to validate the data in this way. You can use a middleware and you will have a better validation: https://express-validator.github.io/docs/
     if (!req.body.title){
         errors.push("title is required");
     }
